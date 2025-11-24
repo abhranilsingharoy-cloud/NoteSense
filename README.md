@@ -42,3 +42,16 @@ NoteSense uses advanced Natural Language Processing (NLP) techniques to analyze 
 5.  Click the button to generate an AI-powered summary and topic tags instantly!
 
 ## Project Structure
+```
+
+NoteSense/
+├──app.py                 # Main Streamlit application
+├──utils.py               # Helper functions for NLP processing
+├──requirements.txt       # Python dependencies
+└──README.md             # Project documentation (this file)
+
+```
+
+## Contributing
+
+Contributions are welcome! Feel free to open an issue or submit a pull request for any improvements.
