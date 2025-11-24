@@ -4,7 +4,6 @@ NoteSense is an intelligent note-taking application that leverages AI to automat
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat&logo=Streamlit&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green.svg)
 
 ## Features
 
