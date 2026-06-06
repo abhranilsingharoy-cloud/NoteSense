@@ -3,92 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NoteSense - Advanced AI Summarizer</title>
-    <!-- Google Fonts for premium typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- Main CSS -->
+    <title>NoteSense - CyberBento Edition</title>
+    <!-- Modern Tech Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <!-- Phosphor Icons for UI Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
-    <div class="glass-background"></div>
+    <div class="grid-background"></div>
     
-    <main class="app-container">
-        <header class="app-header">
-            <div class="logo">
-                <i class="ph ph-brain"></i>
-                <h1>NoteSense</h1>
+    <main class="bento-container">
+        
+        <!-- HEADER GRID ITEM -->
+        <header class="bento-box header-box">
+            <div class="logo-wrapper">
+                <i class="ph-fill ph-cpu"></i>
+                <h1>NOTESENSE</h1>
+                <span class="version-badge">v2.0_ADVANCED</span>
             </div>
-            <p class="subtitle">Advanced AI Notes Summarizer & Extractor</p>
+            <p class="subtitle">AI-Powered NLP Extraction & Summarization Matrix</p>
         </header>
 
-        <div class="panels-container">
-            <!-- Input Panel -->
-            <section class="panel input-panel glass-panel">
-                <h2><i class="ph ph-text-align-left"></i> Summarize Text</h2>
-                <textarea id="text-input" placeholder="Paste your extensive notes, articles, or transcripts here..."></textarea>
-                <button id="summarize-btn" class="primary-btn">
-                    <i class="ph ph-sparkle"></i> Summarize Text
+        <!-- INPUT GRID ITEM (Text) -->
+        <section class="bento-box input-box glow-hover">
+            <div class="box-header">
+                <i class="ph ph-terminal-window"></i>
+                <h2>RAW DATA INPUT</h2>
+            </div>
+            <textarea id="text-input" placeholder=">> Enter data string for processing..."></textarea>
+            <button id="summarize-btn" class="cyber-btn">
+                <span>INITIALIZE SEQUENCE</span>
+                <i class="ph ph-caret-double-right"></i>
+            </button>
+        </section>
+
+        <!-- FILE UPLOAD GRID ITEM -->
+        <section class="bento-box upload-box glow-hover">
+            <div class="box-header">
+                <i class="ph ph-file-dashed"></i>
+                <h2>DATA INGESTION</h2>
+            </div>
+            <p class="helper-text">Establish link for .txt or .pdf files.</p>
+            <form id="upload-form" class="upload-area">
+                <input type="file" id="file-input" name="file" accept=".txt,.pdf" class="file-input">
+                <label for="file-input" class="file-label">
+                    <i class="ph ph-cloud-arrow-up"></i>
+                    <span id="file-name-display">AWAITING FILE...</span>
+                </label>
+                <button type="submit" id="upload-btn" class="cyber-btn secondary">
+                    <span>PROCESS FILE</span>
                 </button>
+            </form>
+        </section>
 
-                <div class="divider">
-                    <span>OR</span>
-                </div>
+        <!-- STATUS GRID ITEM -->
+        <section class="bento-box status-box">
+            <div class="box-header">
+                <i class="ph ph-activity"></i>
+                <h2>SYSTEM STATUS</h2>
+            </div>
+            
+            <div id="loader" class="status-indicator" style="display: none;">
+                <div class="radar-spinner"></div>
+                <p>PROCESSING DATA MATRIX...</p>
+            </div>
+            
+            <div id="error-message" class="error-msg" style="display: none;">
+                <i class="ph-fill ph-warning"></i>
+                <span id="error-text">ERROR</span>
+            </div>
+            
+            <div id="empty-state" class="status-indicator">
+                <i class="ph ph-check-circle"></i>
+                <p>SYSTEM READY.</p>
+            </div>
+        </section>
 
-                <h2><i class="ph ph-file-pdf"></i> Upload Document</h2>
-                <p class="helper-text">Supports .txt and .pdf files with large text handling.</p>
-                <form id="upload-form" class="upload-area">
-                    <input type="file" id="file-input" name="file" accept=".txt,.pdf" class="file-input">
-                    <label for="file-input" class="file-label">
-                        <i class="ph ph-upload-simple"></i>
-                        <span id="file-name-display">Choose a file or drag it here</span>
-                    </label>
-                    <button type="submit" id="upload-btn" class="secondary-btn">
-                        <i class="ph ph-magic-wand"></i> Process File
-                    </button>
-                </form>
-            </section>
+        <!-- SUMMARY RESULTS GRID ITEM -->
+        <section class="bento-box results-box glow-hover">
+            <div class="box-header">
+                <i class="ph ph-article"></i>
+                <h2>EXTRACTED SUMMARY</h2>
+            </div>
+            <div class="results-content-area">
+                <p id="summary-text" class="summary-text" style="display: none;"></p>
+                <p id="summary-placeholder" class="placeholder-text">>> Output will generate here.</p>
+            </div>
+        </section>
 
-            <!-- Results Panel -->
-            <section class="panel results-panel glass-panel">
-                <h2><i class="ph ph-chart-bar"></i> Results</h2>
-                
-                <div id="loader" class="loader-container" style="display: none;">
-                    <div class="spinner"></div>
-                    <p>AI is analyzing and summarizing your content...</p>
-                </div>
+        <!-- KEYWORDS GRID ITEM -->
+        <section class="bento-box keywords-box glow-hover">
+            <div class="box-header">
+                <i class="ph ph-fingerprint"></i>
+                <h2>VITAL ENTITIES</h2>
+            </div>
+            <ul id="keywords-list" class="keywords-list" style="display: none;"></ul>
+            <p id="keywords-placeholder" class="placeholder-text">>> No entities extracted.</p>
+        </section>
 
-                <div id="error-message" class="error-msg" style="display: none;">
-                    <i class="ph ph-warning-circle"></i> <span id="error-text"></span>
-                </div>
-
-                <div id="results-content" class="results-content" style="display: none;">
-                    <div class="result-box summary-box">
-                        <h3><i class="ph ph-article"></i> Executive Summary</h3>
-                        <p id="summary-text" class="summary-text"></p>
-                    </div>
-
-                    <div class="result-box keywords-box">
-                        <h3><i class="ph ph-key"></i> Key Topics & Entities</h3>
-                        <ul id="keywords-list" class="keywords-list"></ul>
-                    </div>
-                </div>
-                
-                <div id="empty-state" class="empty-state">
-                    <i class="ph ph-ghost"></i>
-                    <p>Your AI-generated summary and keywords will appear here.</p>
-                </div>
-            </section>
-        </div>
-        
-        <!-- Footer as requested -->
-        <footer class="app-footer">
-            <p>Developed by <strong>Abhranil Singha Roy</strong></p>
+        <!-- FOOTER GRID ITEM -->
+        <footer class="bento-box footer-box">
+            <div class="dev-signature">
+                <span class="auth">AUTHENTICATION:</span>
+                <strong class="dev-name">DEVELOPED BY ABHRANIL SINGHA ROY</strong>
+            </div>
         </footer>
+
     </main>
 
     <!-- Main JS -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        // Minor patch to adapt the existing main.js to the new DOM IDs smoothly
+        const ob = new MutationObserver(() => {
+            const summary = document.getElementById('summary-text');
+            const placeholder = document.getElementById('summary-placeholder');
+            const kwList = document.getElementById('keywords-list');
+            const kwPlaceholder = document.getElementById('keywords-placeholder');
+            
+            if(summary.textContent.trim() !== '') {
+                summary.style.display = 'block';
+                placeholder.style.display = 'none';
+                kwList.style.display = 'flex';
+                kwPlaceholder.style.display = 'none';
+            } else {
+                summary.style.display = 'none';
+                placeholder.style.display = 'block';
+                kwList.style.display = 'none';
+                kwPlaceholder.style.display = 'block';
+            }
+        });
+        ob.observe(document.getElementById('summary-text'), { childList: true });
+    </script>
 </body>
 </html>
