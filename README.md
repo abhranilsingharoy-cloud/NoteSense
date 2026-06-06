@@ -1,18 +1,22 @@
-# NoteSense - AI Notes Summarizer
+# NoteSense - Advanced AI Notes Summarizer
 
-NoteSense is an intelligent, modern web application that leverages Natural Language Processing (NLP) to generate concise summaries and extract key themes from extensive text or documents. Designed for students, professionals, and anyone who needs to quickly digest large volumes of information, NoteSense supports direct text input, as well as `.txt` and `.pdf` file uploads.
+NoteSense is an intelligent, modern, and highly advanced web application that leverages Natural Language Processing (NLP) to generate concise summaries and extract key themes from extensive text or documents. 
 
-## ✨ Features
+Designed for students, professionals, and power users who need to quickly digest large volumes of information, NoteSense supports direct text input as well as `.txt` and `.pdf` file uploads.
 
-- **Instant Summarization**: Powered by Hugging Face's `t5-small` model for fast and coherent text summarization.
-- **Keyword Extraction**: Identifies the most important themes and terms in your text using TF-IDF.
-- **File Upload Support**: Seamlessly process plain text (`.txt`) and PDF (`.pdf`) documents.
-- **Sleek, Responsive UI**: A clean, modern interface that works beautifully across all devices.
-- **Privacy-First**: Files are processed locally and immediately deleted from the server to ensure maximum privacy.
+![NoteSense Premium UI Placeholder](https://via.placeholder.com/1200x600.png?text=Premium+NoteSense+UI)
+
+## ✨ Advanced Features
+
+- **Premium UI/UX Design**: Built with a sleek, dark-mode glassmorphism interface. Features smooth animations, dynamic gradient backgrounds, and intuitive interactions.
+- **Advanced Text Chunking Engine**: NoteSense isn't limited by standard AI token limits. It intelligently chunks massive documents (like huge PDFs or long transcripts), summarizes the pieces, and seamlessly stitches them back together for comprehensive results.
+- **Key Entity Extraction**: Identifies the most critical themes and terms in your text using an advanced TF-IDF algorithm configured for high relevance.
+- **Universal Support**: Process raw text, `.txt`, and `.pdf` files efficiently.
+- **Privacy-First Architecture**: Files are processed locally and instantly wiped from the server to ensure maximum confidentiality.
 
 ## 🚀 Getting Started
 
-Follow these instructions to set up NoteSense on your local machine for development and testing.
+Follow these instructions to run the advanced NoteSense application on your local machine.
 
 ### Prerequisites
 
@@ -51,14 +55,17 @@ Follow these instructions to set up NoteSense on your local machine for developm
    http://127.0.0.1:5000/
    ```
 
-*(Note: The first time you run the application or summarize a text, the `t5-small` model will be downloaded automatically by the transformers library.)*
+*(Note: The first time you run the application or summarize a text, the `t5` model will be downloaded automatically by the transformers library.)*
 
 ## 🛠️ Tech Stack
 
 - **Backend**: Python, Flask
-- **AI / NLP**: Hugging Face Transformers (`t5-small`), Scikit-learn (TF-IDF)
-- **File Processing**: PyPDF2
-- **Frontend**: HTML5, CSS3, Vanilla JavaScript
+- **AI / NLP Engine**: Hugging Face Transformers (`t5-small`), Scikit-learn (TF-IDF)
+- **Document Processing**: PyPDF2
+- **Frontend Architecture**: HTML5, CSS3 Variables, Glassmorphism UI, Vanilla JavaScript
+
+## 👨‍💻 Developer
+Developed with passion by **Abhranil Singha Roy**.
 
 ## 🤝 Contributing
 
