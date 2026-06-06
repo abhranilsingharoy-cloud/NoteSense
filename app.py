@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, jsonify, render_template
 import PyPDF2
-from summarizer import get_summary, get_keywords
+from notesensesummarizer import get_summary, get_keywords
 
 app = Flask(__name__)
 

@@ -1,57 +1,70 @@
-# NoteSense 📝✨
+# NoteSense - AI Notes Summarizer
 
-NoteSense is an intelligent note-taking application that leverages AI to automatically organize and summarize your notes, transforming raw text into clear, actionable insights.
+NoteSense is an intelligent, modern web application that leverages Natural Language Processing (NLP) to generate concise summaries and extract key themes from extensive text or documents. Designed for students, professionals, and anyone who needs to quickly digest large volumes of information, NoteSense supports direct text input, as well as `.txt` and `.pdf` file uploads.
 
-![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
-![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat&logo=Streamlit&logoColor=white)
+## ✨ Features
 
+- **Instant Summarization**: Powered by Hugging Face's `t5-small` model for fast and coherent text summarization.
+- **Keyword Extraction**: Identifies the most important themes and terms in your text using TF-IDF.
+- **File Upload Support**: Seamlessly process plain text (`.txt`) and PDF (`.pdf`) documents.
+- **Sleek, Responsive UI**: A clean, modern interface that works beautifully across all devices.
+- **Privacy-First**: Files are processed locally and immediately deleted from the server to ensure maximum privacy.
 
-## Features
+## 🚀 Getting Started
 
-- **AI-Powered Summarization**: Get concise summaries of your long-form notes with a single click.
-- **Smart Topic Extraction**: Automatically detects and suggests relevant topics/keywords for your notes.
-- **Interactive Web Interface**: Built with Streamlit for a clean and user-friendly experience.
-- **Effortless Organization**: Categorize and find your notes faster using AI-generated tags.
+Follow these instructions to set up NoteSense on your local machine for development and testing.
 
-## How It Works
+### Prerequisites
 
-NoteSense uses advanced Natural Language Processing (NLP) techniques to analyze your text. It identifies key sentences and phrases to generate summaries and extract the most relevant topics, helping you understand the essence of your notes at a glance.
+- **Python 3.8+** installed on your system.
 
-## Installation
+### Installation
 
-1.  **Clone the repository**
-    ```bash
-    git clone https://github.com/abhranilsingharoy-cloud/NoteSense.git
-    cd NoteSense
-    ```
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/abhranilsingharoy-cloud/NoteSense.git
+   cd NoteSense
+   ```
 
-2.  **Install the required dependencies**
-    ```bash
-    pip install -r requirements.txt
-    ```
+2. **Set up a virtual environment (Recommended):**
+   ```bash
+   python -m venv venv
+   # On Windows:
+   venv\Scripts\activate
+   # On macOS/Linux:
+   source venv/bin/activate
+   ```
 
-## Usage
+3. **Install the dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-1.  Navigate to the project directory.
-2.  Run the Streamlit app:
-    ```bash
-    streamlit run app.py
-    ```
-3.  Open your web browser to the local URL provided (usually `http://localhost:8501`).
-4.  Paste or type your note into the text area.
-5.  Click the button to generate an AI-powered summary and topic tags instantly!
+### Running the Application
 
-## Project Structure
-```
+1. Start the Flask server:
+   ```bash
+   python app.py
+   ```
+2. Open your web browser and navigate to:
+   ```
+   http://127.0.0.1:5000/
+   ```
 
-NoteSense/
-├──app.py                 # Main Streamlit application
-├──utils.py               # Helper functions for NLP processing
-├──requirements.txt       # Python dependencies
-└──README.md             # Project documentation (this file)
+*(Note: The first time you run the application or summarize a text, the `t5-small` model will be downloaded automatically by the transformers library.)*
 
-```
+## 🛠️ Tech Stack
 
-## Contributing
+- **Backend**: Python, Flask
+- **AI / NLP**: Hugging Face Transformers (`t5-small`), Scikit-learn (TF-IDF)
+- **File Processing**: PyPDF2
+- **Frontend**: HTML5, CSS3, Vanilla JavaScript
 
-Contributions are welcome! Feel free to open an issue or submit a pull request for any improvements.
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome! 
+Feel free to check the [issues page](https://github.com/abhranilsingharoy-cloud/NoteSense/issues) if you want to contribute.
+
+## 📝 License
+
+This project is open-source and available under the [MIT License](LICENSE).
