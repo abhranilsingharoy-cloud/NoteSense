@@ -4,7 +4,6 @@ NoteSense is an intelligent, modern, and highly advanced web application that le
 
 Designed for students, professionals, and power users who need to quickly digest large volumes of information, NoteSense supports direct text input as well as `.txt` and `.pdf` file uploads.
 
-![NoteSense Premium UI Placeholder](https://via.placeholder.com/1200x600.png?text=Premium+NoteSense+UI)
 
 ## ✨ Advanced Features
 
