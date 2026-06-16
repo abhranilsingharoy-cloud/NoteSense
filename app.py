@@ -2,7 +2,7 @@ import os
 import tempfile
 from flask import Flask, request, jsonify, render_template, send_file
 import PyPDF2
-from notesensesummarizer import get_summary, get_entities, get_sentiment, answer_question
+from ai_engine.analyzer import get_summary, get_entities, get_sentiment, answer_question
 from fpdf import FPDF
 
 app = Flask(__name__)

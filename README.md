@@ -38,10 +38,15 @@ Built for students, researchers, and professionals, NoteSense combines a powerfu
 ```text
 NoteSense/
 ├── app.py                      # Main Flask application and API routing
-├── notesensesummarizer.py      # Core AI/NLP logic (Summarization, NER, Q&A, Sentiment)
 ├── requirements.txt            # Python dependencies
 ├── LICENSE                     # MIT License
 ├── README.md                   # Project documentation
+├── Dockerfile                  # Container deployment instructions
+├── render.yaml                 # Infrastructure as Code for Render.com
+│
+├── ai_engine/                  # NLP Core Services
+│   ├── __init__.py
+│   └── analyzer.py             # Summarization, NER, Q&A, Sentiment logic
 │
 ├── static/                     # Static assets (CSS, JS)
 │   ├── css/
