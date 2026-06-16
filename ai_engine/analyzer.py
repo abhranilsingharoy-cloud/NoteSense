@@ -16,7 +16,7 @@ def load_ai_model():
     if model is None:
         try:
             print("==========================================================================", flush=True)
-            print("🤖 Booting AI Engine... (Loading Summarization, NER, and Sentiment)", flush=True)
+            print("[INFO] Booting AI Engine... (Loading Summarization, NER, and Sentiment)", flush=True)
             print("==========================================================================", flush=True)
             tokenizer = AutoTokenizer.from_pretrained("t5-small")
             model = AutoModelForSeq2SeqLM.from_pretrained("t5-small")
@@ -31,15 +31,15 @@ def load_ai_model():
             except Exception as e:
                 print(f"Warning: Failed to load NLTK VADER: {e}")
                 
-            print("✅ Core AI models loaded successfully!", flush=True)
+            print("[SUCCESS] Core AI models loaded successfully!", flush=True)
         except Exception as e:
-            print(f"❌ Error loading models: {e}", flush=True)
+            print(f"[ERROR] Error loading models: {e}", flush=True)
     return tokenizer, model
 
 def load_qa_pipeline():
     global qa_pipeline
     if qa_pipeline is None:
-        print("🤖 Loading Q&A Pipeline (lazy load)...", flush=True)
+        print("[INFO] Loading Q&A Pipeline (lazy load)...", flush=True)
         qa_pipeline = pipeline("question-answering", model="distilbert-base-cased-distilled-squad")
     return qa_pipeline
 
