@@ -1,83 +1,148 @@
-# NoteSense - Advanced AI Notes Summarizer (CyberBento Edition)
+<div align="center">
+  
+# 🌌 NoteSense 
 
-NoteSense is an intelligent, modern, and highly advanced web application that leverages Natural Language Processing (NLP) to generate concise summaries, answer questions, and extract key themes from extensive text or documents.
+**An Advanced AI-Powered NLP Document Analyzer & Summarization Matrix**
 
-Designed for students, professionals, and power users who need to quickly digest large volumes of information, NoteSense supports direct text input as well as `.txt` and `.pdf` file uploads.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Flask](https://img.shields.io/badge/Flask-Framework-black?logo=flask)](https://flask.palletsprojects.com/)
+[![Three.js](https://img.shields.io/badge/Three.js-3D%20Rendering-white?logo=three.js)](https://threejs.org/)
 
-## ✨ Advanced Features
+</div>
 
-- **3D CyberBento Interface**: Built with a sleek, dark-mode glassmorphism interface featuring a Three.js interactive matrix background and 3D Vanilla-tilt hover cards.
-- **Advanced Text Chunking Engine**: NoteSense intelligently chunks massive documents, summarizes the pieces with `t5-small`, and seamlessly stitches them back together.
-- **Smart Entity Categorization (NER)**: Uses `spaCy` to intelligently identify and categorize **Persons**, **Organizations**, and **Locations** within your text.
-- **VADER Sentiment Analysis**: Lightning-fast tone detection that displays the overall sentiment of the uploaded data.
-- **Document Query Matrix (Q&A)**: Uses a distilled transformer model (`distilbert-squad`) to let you ask direct questions about the uploaded text.
-- **Matrix Log Export**: Instantly generate and download a perfectly formatted PDF containing your summary and extracted entities.
-- **Privacy-First Architecture**: Files are processed locally and instantly wiped from the server to ensure maximum confidentiality.
+---
+
+## 📖 Overview
+
+**NoteSense** is an intelligent, modern, and highly advanced web application designed to leverage Natural Language Processing (NLP) for instantaneous document digestion. It effortlessly processes large volumes of raw text, `.txt`, and `.pdf` files to generate concise summaries, answer specific questions, and extract critical intelligence.
+
+Built for students, researchers, and professionals, NoteSense combines a powerful Hugging Face backend with an immersive, **3D CyberBento** frontend interface.
+
+---
+
+## ✨ Core Features
+
+*   **Immersive 3D UI:** A sleek, dark-mode glassmorphism interface featuring a reactive Three.js particle matrix background and Vanilla-tilt 3D hover cards.
+*   **Advanced Text Chunking:** Intelligently bypasses standard token limits by chunking massive documents, summarizing individual segments via `t5-small`, and seamlessly stitching them back together.
+*   **Smart Entity Categorization (NER):** Utilizes `spaCy` to contextually identify and categorize data into **Persons**, **Organizations**, and **Locations**.
+*   **Document Query Matrix (Q&A):** Ask direct questions about your uploaded document! Powered by a distilled transformer (`distilbert-squad`), the AI scans your text to provide accurate answers on demand.
+*   **VADER Sentiment Analysis:** Lightning-fast tone detection that instantly calculates whether the uploaded data leans Positive, Negative, or Neutral.
+*   **Matrix Log Export:** Generate and download a perfectly formatted PDF report containing your generated summary, sentiment analysis, and vital entities in one click.
+*   **Privacy-First:** All files are processed locally and wiped instantly from the server upon completion to guarantee maximum confidentiality.
+
+---
+
+## 📂 Project Structure
+
+```text
+NoteSense/
+├── app.py                      # Main Flask application and API routing
+├── notesensesummarizer.py      # Core AI/NLP logic (Summarization, NER, Q&A, Sentiment)
+├── requirements.txt            # Python dependencies
+├── LICENSE                     # MIT License
+├── README.md                   # Project documentation
+│
+├── static/                     # Static assets (CSS, JS)
+│   ├── css/
+│   │   └── style.css           # 3D styling, animations, and CyberBento grid
+│   └── js/
+│       └── main.js             # API integrations, Three.js logic, UI state
+│
+├── templates/                  # HTML templates
+│   └── index.html              # Main frontend UI structure
+│
+└── uploads/                    # Temporary storage for document processing
+```
+
+---
 
 ## 🚀 Getting Started
 
-Follow these instructions to run the advanced NoteSense application on your local machine.
+Follow these instructions to set up and run NoteSense on your local machine.
 
 ### Prerequisites
 
-- **Python 3.8+** installed on your system.
+*   **Python 3.8** or higher installed.
+*   **Git** installed on your system.
 
-### Installation
+### 1. Clone the Repository
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/abhranilsingharoy-cloud/NoteSense.git
-   cd NoteSense
-   ```
+```bash
+git clone https://github.com/abhranilsingharoy-cloud/NoteSense.git
+cd NoteSense
+```
 
-2. **Set up a virtual environment (Recommended):**
-   ```bash
-   python -m venv venv
-   # On Windows:
-   venv\Scripts\activate
-   # On macOS/Linux:
-   source venv/bin/activate
-   ```
+### 2. Environment Setup
 
-3. **Install the dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
+It is highly recommended to use a virtual environment to manage dependencies securely.
 
-4. **Download the AI Datasets (spaCy and NLTK):**
-   ```bash
-   python -m spacy download en_core_web_sm
-   python -c "import nltk; nltk.download('vader_lexicon')"
-   ```
+```bash
+python -m venv venv
 
-### Running the Application
+# Activate on Windows:
+venv\Scripts\activate
 
-1. Start the Flask server:
-   ```bash
-   python app.py
-   ```
-2. Open your web browser and navigate to:
-   ```
-   http://127.0.0.1:5000/
-   ```
+# Activate on macOS/Linux:
+source venv/bin/activate
+```
 
-*(Note: The first time you run the application or summarize a text, the Hugging Face models will be downloaded automatically.)*
+### 3. Install Dependencies
 
-## 🛠️ Tech Stack
+Install the required Python packages:
 
-- **Backend**: Python, Flask
-- **AI / NLP Engine**: Hugging Face Transformers (`t5-small`, `distilbert-squad`), spaCy (`en_core_web_sm`), NLTK (VADER)
-- **Document Processing & Export**: PyPDF2, fpdf2
-- **Frontend Architecture**: HTML5, Vanilla CSS, Vanilla JavaScript, Three.js, Vanilla-tilt.js
+```bash
+pip install -r requirements.txt
+```
 
-## 👨‍💻 Developer
-Developed with passion by **Abhranil Singha Roy**.
+### 4. Download AI Datasets
+
+NoteSense requires specific language models for NER and Sentiment Analysis. Download them using the following commands:
+
+```bash
+python -m spacy download en_core_web_sm
+python -c "import nltk; nltk.download('vader_lexicon')"
+```
+
+### 5. Launch the Server
+
+Start the Flask application:
+
+```bash
+python app.py
+```
+
+Open your web browser and navigate to: **http://127.0.0.1:5000/**
+
+> **Note:** The first time you summarize text or ask a question, the Hugging Face transformer models (`t5-small`, `distilbert-squad`) will be automatically downloaded to your machine.
+
+---
+
+## 🛠️ Technology Stack
+
+| Domain | Technologies |
+| :--- | :--- |
+| **Backend Framework** | Python, Flask |
+| **NLP & AI Engine** | Hugging Face Transformers (`t5-small`, `distilbert-squad`) |
+| **Entity & Sentiment**| `spaCy` (`en_core_web_sm`), NLTK (VADER) |
+| **Data Processing** | `PyPDF2` (Parsing), `fpdf2` (PDF Generation) |
+| **Frontend UI** | HTML5, Vanilla CSS3 (Variables, Grid), Vanilla JavaScript |
+| **Frontend 3D Visuals**| Three.js, Vanilla-tilt.js |
+
+---
 
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome! 
-Feel free to check the [issues page](https://github.com/abhranilsingharoy-cloud/NoteSense/issues) if you want to contribute.
+If you have suggestions for improving NoteSense, feel free to check the [issues page](https://github.com/abhranilsingharoy-cloud/NoteSense/issues).
+
+---
 
 ## 📝 License
 
-This project is open-source and available under the [MIT License](LICENSE).
+This project is open-source and distributed under the terms of the [MIT License](LICENSE). 
+
+---
+<div align="center">
+  <i>Developed with passion by <b>Abhranil Singha Roy</b></i>
+</div>
