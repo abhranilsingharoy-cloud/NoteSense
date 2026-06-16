@@ -10,6 +10,7 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
+    <canvas id="three-bg"></canvas>
     <div class="grid-background"></div>
     
     <main class="bento-container">
@@ -81,9 +82,15 @@
 
         <!-- SUMMARY RESULTS GRID ITEM -->
         <section class="bento-box results-box glow-hover">
-            <div class="box-header">
-                <i class="ph ph-article"></i>
-                <h2>EXTRACTED SUMMARY</h2>
+            <div class="box-header" style="justify-content: space-between; width: 100%;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="ph ph-article"></i>
+                    <h2>EXTRACTED SUMMARY</h2>
+                    <span id="sentiment-badge" class="version-badge" style="display: none; margin-left: 10px;"></span>
+                </div>
+                <button id="export-btn" class="cyber-btn secondary" style="display: none; padding: 5px 10px; font-size: 0.8rem;">
+                    <i class="ph ph-download-simple"></i> EXPORT LOG
+                </button>
             </div>
             <div class="results-content-area">
                 <p id="summary-text" class="summary-text" style="display: none;"></p>
@@ -97,8 +104,34 @@
                 <i class="ph ph-fingerprint"></i>
                 <h2>VITAL ENTITIES</h2>
             </div>
-            <ul id="keywords-list" class="keywords-list" style="display: none;"></ul>
+            <div id="entities-container" style="display: none; flex-direction: column; gap: 15px;">
+                <div>
+                    <h3 style="color: var(--neon-cyan); font-size: 0.8rem; margin: 0 0 5px 0;">👤 PERSONS</h3>
+                    <ul id="person-list" class="keywords-list"></ul>
+                </div>
+                <div>
+                    <h3 style="color: var(--neon-cyan); font-size: 0.8rem; margin: 0 0 5px 0;">🏢 ORGS</h3>
+                    <ul id="org-list" class="keywords-list"></ul>
+                </div>
+                <div>
+                    <h3 style="color: var(--neon-cyan); font-size: 0.8rem; margin: 0 0 5px 0;">📍 LOCATIONS</h3>
+                    <ul id="loc-list" class="keywords-list"></ul>
+                </div>
+            </div>
             <p id="keywords-placeholder" class="placeholder-text">>> No entities extracted.</p>
+        </section>
+
+        <!-- Q&A GRID ITEM -->
+        <section class="bento-box qa-box glow-hover" style="grid-column: span 4; display: none;" id="qa-section">
+            <div class="box-header">
+                <i class="ph ph-chat-centered-text"></i>
+                <h2>DOCUMENT QUERY MATRIX</h2>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="qa-input" placeholder=">> Ask a question about the extracted data..." style="flex-grow: 1; background: transparent; border: 1px dashed var(--bento-border); color: var(--text-main); padding: 10px; font-family: var(--font-mono); outline: none;">
+                <button id="qa-btn" class="cyber-btn">QUERY</button>
+            </div>
+            <p id="qa-answer" style="margin-top: 15px; color: var(--neon-cyan); font-weight: bold; display: none;"></p>
         </section>
 
         <!-- FOOTER GRID ITEM -->
@@ -111,26 +144,37 @@
 
     </main>
 
+    <!-- 3D Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     <!-- Main JS -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script>
-        // Minor patch to adapt the existing main.js to the new DOM IDs smoothly
         const ob = new MutationObserver(() => {
             const summary = document.getElementById('summary-text');
             const placeholder = document.getElementById('summary-placeholder');
-            const kwList = document.getElementById('keywords-list');
+            const entitiesContainer = document.getElementById('entities-container');
             const kwPlaceholder = document.getElementById('keywords-placeholder');
+            const qaSection = document.getElementById('qa-section');
+            const exportBtn = document.getElementById('export-btn');
+            const sentimentBadge = document.getElementById('sentiment-badge');
             
             if(summary.textContent.trim() !== '') {
                 summary.style.display = 'block';
                 placeholder.style.display = 'none';
-                kwList.style.display = 'flex';
+                entitiesContainer.style.display = 'flex';
                 kwPlaceholder.style.display = 'none';
+                qaSection.style.display = 'flex';
+                exportBtn.style.display = 'flex';
+                sentimentBadge.style.display = 'inline-block';
             } else {
                 summary.style.display = 'none';
                 placeholder.style.display = 'block';
-                kwList.style.display = 'none';
+                entitiesContainer.style.display = 'none';
                 kwPlaceholder.style.display = 'block';
+                qaSection.style.display = 'none';
+                exportBtn.style.display = 'none';
+                sentimentBadge.style.display = 'none';
             }
         });
         ob.observe(document.getElementById('summary-text'), { childList: true });

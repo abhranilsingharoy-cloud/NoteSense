@@ -53,6 +53,17 @@ body::after {
     100% { transform: translate(-30px, -30px); }
 }
 
+#three-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    pointer-events: none;
+}
+
+
 /* Bento Grid Layout */
 .bento-container {
     display: grid;
@@ -73,10 +84,14 @@ body::after {
     display: flex;
     flex-direction: column;
     position: relative;
-    overflow: hidden;
     /* Entrance Animation */
     opacity: 0;
     animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transform-style: preserve-3d;
+}
+
+.bento-box > * {
+    transform: translateZ(20px);
 }
 
 @keyframes slideUpFade {

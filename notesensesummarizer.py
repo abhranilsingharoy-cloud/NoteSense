@@ -1,35 +1,53 @@
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-from sklearn.feature_extraction.text import TfidfVectorizer
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline
+import spacy
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import logging
 
 logging.getLogger("transformers").setLevel(logging.ERROR)
 
 tokenizer = None
 model = None
+qa_pipeline = None
+nlp = None
+sia = None
 
 def load_ai_model():
-    global tokenizer, model
+    global tokenizer, model, nlp, sia
     if model is None:
         try:
             print("==========================================================================", flush=True)
-            print("🤖 Booting AI Engine... (Downloading model weights if first run, please wait!)", flush=True)
+            print("🤖 Booting AI Engine... (Loading Summarization, NER, and Sentiment)", flush=True)
             print("==========================================================================", flush=True)
             tokenizer = AutoTokenizer.from_pretrained("t5-small")
             model = AutoModelForSeq2SeqLM.from_pretrained("t5-small")
-            print("✅ Summarization model loaded successfully!", flush=True)
+            
+            try:
+                nlp = spacy.load("en_core_web_sm")
+            except Exception as e:
+                print(f"Warning: Failed to load spaCy model: {e}")
+                
+            try:
+                sia = SentimentIntensityAnalyzer()
+            except Exception as e:
+                print(f"Warning: Failed to load NLTK VADER: {e}")
+                
+            print("✅ Core AI models loaded successfully!", flush=True)
         except Exception as e:
-            print(f"❌ Error loading summarization model: {e}", flush=True)
+            print(f"❌ Error loading models: {e}", flush=True)
     return tokenizer, model
 
+def load_qa_pipeline():
+    global qa_pipeline
+    if qa_pipeline is None:
+        print("🤖 Loading Q&A Pipeline (lazy load)...", flush=True)
+        qa_pipeline = pipeline("question-answering", model="distilbert-base-cased-distilled-squad")
+    return qa_pipeline
+
 def get_summary(text: str) -> str:
-    """
-    Generates a summary for the given text using an advanced chunking algorithm.
-    """
     tok, mod = load_ai_model()
     if mod is None or tok is None:
         return "Error: Summarization model is not loaded."
 
-    # T5 models have a token limit. We chunk the text by words to stay within limits.
     max_chunk_length = 400 
     words = text.split()
     
@@ -78,15 +96,46 @@ def get_summary(text: str) -> str:
     combined_summary = " ".join(summarized_chunks)
     return combined_summary
 
-def get_keywords(text: str) -> list:
-    """
-    Extracts top keywords using an advanced TF-IDF configuration.
-    """
+def get_entities(text: str) -> dict:
+    load_ai_model()
+    if nlp is None:
+        return {"Person": [], "Organization": [], "Location": []}
+    
+    doc = nlp(text)
+    entities = {"Person": set(), "Organization": set(), "Location": set()}
+    
+    for ent in doc.ents:
+        if ent.label_ == "PERSON":
+            entities["Person"].add(ent.text)
+        elif ent.label_ == "ORG":
+            entities["Organization"].add(ent.text)
+        elif ent.label_ in ["GPE", "LOC"]:
+            entities["Location"].add(ent.text)
+            
+    return {
+        "Person": list(entities["Person"])[:5],
+        "Organization": list(entities["Organization"])[:5],
+        "Location": list(entities["Location"])[:5]
+    }
+
+def get_sentiment(text: str) -> str:
+    load_ai_model()
+    if sia is None:
+        return "Unknown"
+        
+    scores = sia.polarity_scores(text)
+    compound = scores['compound']
+    if compound >= 0.05:
+        return "Positive"
+    elif compound <= -0.05:
+        return "Negative"
+    else:
+        return "Neutral"
+
+def answer_question(text: str, question: str) -> str:
+    qa = load_qa_pipeline()
     try:
-        vectorizer = TfidfVectorizer(stop_words='english', max_features=8, ngram_range=(1, 2))
-        vectorizer.fit_transform([text])
-        keywords = vectorizer.get_feature_names_out()
-        return list(keywords)
+        result = qa(question=question, context=text)
+        return result['answer']
     except Exception as e:
-        print(f"Error extracting keywords: {e}")
-        return []
+        return f"Error answering question: {e}"

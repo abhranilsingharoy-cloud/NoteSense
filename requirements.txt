@@ -4,3 +4,6 @@ torch
 sentencepiece
 PyPDF2
 scikit-learn
+spacy
+nltk
+fpdf2
