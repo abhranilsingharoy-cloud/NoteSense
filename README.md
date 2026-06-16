@@ -1,16 +1,17 @@
-# NoteSense - Advanced AI Notes Summarizer
+# NoteSense - Advanced AI Notes Summarizer (CyberBento Edition)
 
-NoteSense is an intelligent, modern, and highly advanced web application that leverages Natural Language Processing (NLP) to generate concise summaries and extract key themes from extensive text or documents. 
+NoteSense is an intelligent, modern, and highly advanced web application that leverages Natural Language Processing (NLP) to generate concise summaries, answer questions, and extract key themes from extensive text or documents.
 
 Designed for students, professionals, and power users who need to quickly digest large volumes of information, NoteSense supports direct text input as well as `.txt` and `.pdf` file uploads.
 
-
 ## ✨ Advanced Features
 
-- **Premium UI/UX Design**: Built with a sleek, dark-mode glassmorphism interface. Features smooth animations, dynamic gradient backgrounds, and intuitive interactions.
-- **Advanced Text Chunking Engine**: NoteSense isn't limited by standard AI token limits. It intelligently chunks massive documents (like huge PDFs or long transcripts), summarizes the pieces, and seamlessly stitches them back together for comprehensive results.
-- **Key Entity Extraction**: Identifies the most critical themes and terms in your text using an advanced TF-IDF algorithm configured for high relevance.
-- **Universal Support**: Process raw text, `.txt`, and `.pdf` files efficiently.
+- **3D CyberBento Interface**: Built with a sleek, dark-mode glassmorphism interface featuring a Three.js interactive matrix background and 3D Vanilla-tilt hover cards.
+- **Advanced Text Chunking Engine**: NoteSense intelligently chunks massive documents, summarizes the pieces with `t5-small`, and seamlessly stitches them back together.
+- **Smart Entity Categorization (NER)**: Uses `spaCy` to intelligently identify and categorize **Persons**, **Organizations**, and **Locations** within your text.
+- **VADER Sentiment Analysis**: Lightning-fast tone detection that displays the overall sentiment of the uploaded data.
+- **Document Query Matrix (Q&A)**: Uses a distilled transformer model (`distilbert-squad`) to let you ask direct questions about the uploaded text.
+- **Matrix Log Export**: Instantly generate and download a perfectly formatted PDF containing your summary and extracted entities.
 - **Privacy-First Architecture**: Files are processed locally and instantly wiped from the server to ensure maximum confidentiality.
 
 ## 🚀 Getting Started
@@ -43,6 +44,12 @@ Follow these instructions to run the advanced NoteSense application on your loca
    pip install -r requirements.txt
    ```
 
+4. **Download the AI Datasets (spaCy and NLTK):**
+   ```bash
+   python -m spacy download en_core_web_sm
+   python -c "import nltk; nltk.download('vader_lexicon')"
+   ```
+
 ### Running the Application
 
 1. Start the Flask server:
@@ -54,14 +61,14 @@ Follow these instructions to run the advanced NoteSense application on your loca
    http://127.0.0.1:5000/
    ```
 
-*(Note: The first time you run the application or summarize a text, the `t5` model will be downloaded automatically by the transformers library.)*
+*(Note: The first time you run the application or summarize a text, the Hugging Face models will be downloaded automatically.)*
 
 ## 🛠️ Tech Stack
 
 - **Backend**: Python, Flask
-- **AI / NLP Engine**: Hugging Face Transformers (`t5-small`), Scikit-learn (TF-IDF)
-- **Document Processing**: PyPDF2
-- **Frontend Architecture**: HTML5, CSS3 Variables, Glassmorphism UI, Vanilla JavaScript
+- **AI / NLP Engine**: Hugging Face Transformers (`t5-small`, `distilbert-squad`), spaCy (`en_core_web_sm`), NLTK (VADER)
+- **Document Processing & Export**: PyPDF2, fpdf2
+- **Frontend Architecture**: HTML5, Vanilla CSS, Vanilla JavaScript, Three.js, Vanilla-tilt.js
 
 ## 👨‍💻 Developer
 Developed with passion by **Abhranil Singha Roy**.
