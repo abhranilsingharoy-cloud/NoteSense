@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: notesense-ai
+    env: docker
+    plan: starter # Starter plan recommended due to ML memory requirements
+    region: oregon
